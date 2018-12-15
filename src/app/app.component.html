@@ -28,6 +28,7 @@
       <label><b>Name</b></label>
       <input type="text" required #controlRefVariable="ngModel" [class.is-invalid]="controlRefVariable.invalid && controlRefVariable.touched"
         class="form-control" name="userName" [(ngModel)]="userModel.name" >
+        <small class="text-danger" [class.d-none]="controlRefVariable.valid || controlRefVariable.untouched">Name is requird</small>
       <br>
       <table class="table table-bordered">
         <tr>
@@ -54,6 +55,7 @@
       <label>Phone</label>
       <input type="tel" #phone="ngModel" pattern="^\d{10}$" [class.is-invalid]="phone.invalid" class="form-control"
         name="phone" [(ngModel)]="userModel.phone" >
+        <small class="text-danger" [class.d-none]="phone.valid || phone.untouched">Phone No must be 10 digit</small>
     </div>
     <div class="form-group">
       <label>Topics preference</label>
