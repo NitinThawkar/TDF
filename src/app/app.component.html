@@ -4,6 +4,8 @@
     <b>FormRefVariable :</b> {{FormRefVariable.value | json}}
     <hr>
     <b>User Class Model</b> : {{userModel | json}}
+    <hr>
+    <b>form valid</b> : {{FormRefVariable.form.valid | json}}
 
     <hr>
     <!-- <div ngModelGroup="address">
@@ -89,8 +91,8 @@
       </label>
     </div>
 
-    <button class="btn btn-primary" type="submit">Submit form</button>
-
+    <button class="btn btn-primary" type="submit" [disabled]="FormRefVariable.form.invalid" >Submit form</button>
+    <!-- <button class="btn btn-primary" type="submit" [disabled]="FormRefVariable.form.invalid || topic.hasError">Submit form</button> -->
 
   </form>
 </div>
