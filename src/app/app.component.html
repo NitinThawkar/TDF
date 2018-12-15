@@ -53,9 +53,9 @@
     </div>
     <div class="form-group">
       <label>Phone</label>
-      <input type="tel" #phone="ngModel" pattern="^\d{10}$" [class.is-invalid]="phone.invalid" class="form-control"
+      <input type="tel" #phone="ngModel" required pattern="^\d{10}$" [class.is-invalid]="phone.invalid" class="form-control"
         name="phone" [(ngModel)]="userModel.phone" >
-        <small class="text-danger" [class.d-none]="phone.valid || phone.untouched">Phone No must be 10 digit</small>
+        <small class="text-danger" [class.d-none]="phone.valid || phone.untouched">Phone No must be 10 digit and Requied</small>
     </div>
     <div class="form-group">
       <label>Topics preference</label>
