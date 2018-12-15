@@ -62,11 +62,12 @@
         </div>
     </div>
     <div class="form-group">
-      <label>Topics preference</label>
-      <select class="custom-select" name="topic" [(ngModel)]="userModel.topic">
-        <option value="">I am intrested In</option>
-        <option *ngFor="let topic of topics">{{topic}}</option>
+      <select class="custom-select"  #topic="ngModel"
+        [class.is-invalid]="topic.invalid && topic.touched" name="topic" [(ngModel)]="userModel.topic">
+        <option value="">I am interested in</option>
+        <option *ngFor="let topic of topics">{{ topic }}</option>
       </select>
+      <small class="text-danger" [class.d-none]="topic.invalid || topic.untouched">Please choose a topic</small>
     </div>
     <div class="mb-3">
       <label>Time preference</label>

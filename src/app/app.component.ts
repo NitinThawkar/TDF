@@ -10,5 +10,5 @@ export class AppComponent {
   title = 'app';
   topics = ['Angular', 'VUE', 'React', 'Bootsrtap'];
 
-  userModel = new User('', 'nit@gmail.com', 9999988888, 'Angular', 'morning', true);
+  userModel = new User('', 'nit@gmail.com', 9999988888, '', 'morning', true);
 }
