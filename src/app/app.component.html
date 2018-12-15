@@ -25,10 +25,25 @@
       </div>
     </div> -->
     <div class="form-group">
-      <label>Name</label>
-      <input type="text"  #controlRefVariable class="form-control" name="userName" [(ngModel)] ="userModel.name" >
+      <label><b>Name</b></label>
+      <input type="text"  #controlRefVariable ="ngModel" class="form-control" name="userName" [(ngModel)] ="userModel.name" >      
+     <br>
+      <table class="table table-bordered">
+        <tr>
+          <td> Name touched : {{controlRefVariable.touched}}</td>
+          <td> Name untouched : {{controlRefVariable.untouched}}</td>
+        </tr>
+        <tr>
+          <td> Name pristine : {{controlRefVariable.pristine}}</td>
+          <td>Name dirty : {{controlRefVariable.dirty}}</td>
+        </tr>
+        <tr>
+          <td> Name valid : {{controlRefVariable.valid}}</td>
+          <td> Name invalid : {{controlRefVariable.invalid}}</td>
+        </tr>
+      </table>
+     
       <hr>
-      <b>Name control Ref Variable</b> :  {{controlRefVariable.className}}  
     </div>
     <div class="form-group">
       <label>Email</label>
