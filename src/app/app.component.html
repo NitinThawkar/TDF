@@ -1,6 +1,6 @@
 <div class="container">
   <h1>Register form</h1>
-  <form #FormRefVariable="ngForm">
+  <form #FormRefVariable="ngForm" (ngSubmit)="onSubmit()" novalidate>
     <b>FormRefVariable :</b> {{FormRefVariable.value | json}}
     <hr>
     <b>User Class Model</b> : {{userModel | json}}
