@@ -1,5 +1,5 @@
 <div class="container">
-  <form action="" [formGroup]="registrationForm">
+  <form action="" [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
     <fieldset>
       <legend>
         <h3>Reactive Registration Form</h3>
@@ -60,7 +60,7 @@
       <button type="submit" class="btn btn-primary">
         Register
       </button>
-      <button (click)="loadAPIData()" class="btn btn-secondary ml-2" type="button">Load API Data</button>
+      <button (click)="loadAPIData()" [disabled]="!registrationForm.valid" class="btn btn-secondary ml-2" type="button">Load API Data</button>
     </fieldset>
   </form>
 </div>

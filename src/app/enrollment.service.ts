@@ -10,6 +10,7 @@ import { throwError } from 'rxjs';
 export class EnrollmentService {
 
   _url = 'http://localhost:56329/api/enroll/SaveEnroll';
+   // _url = 'http://localhost:56329/api/enroll/SaveEnrollError'
   constructor(private _HttpClient: HttpClient) { }
 
   enroll(user: User) {
