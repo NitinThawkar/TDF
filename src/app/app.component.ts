@@ -8,7 +8,9 @@ import {EnrollmentService} from './enrollment.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  errorMsg = '';
   constructor(private _EnrollmentService: EnrollmentService) { }
+  
 
   title = 'app';
   topics = ['Angular', 'VUE', 'React', 'Bootsrtap'];
@@ -26,11 +28,11 @@ export class AppComponent {
 
   onSubmit() {
     this._EnrollmentService.enroll(this.userModel)
-      .subscribe(
-        response => console.log('Success!', response),
-        error => console.log('Success!', error),
-      );
-
-    console.log(this.userModel);
+    .subscribe(
+      response => console.log('Success!', response),
+      error => this.errorMsg = error.statusText
+    )
+   // console.log(this.errorMsg);
+   // console.log(this.errorMsg );
   }
 }

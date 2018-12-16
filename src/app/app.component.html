@@ -1,5 +1,8 @@
 <div class="container">
   <h1>Register form</h1>
+  <div *ngIf="errorMsg" class="alert alert-danger" role="alert" >
+    {{errorMsg}}
+  </div>
   <form #FormRefVariable="ngForm" (ngSubmit)="onSubmit()" novalidate>
     <b>FormRefVariable :</b> {{FormRefVariable.value | json}}
     <hr>
@@ -93,6 +96,7 @@
 
     <button class="btn btn-primary" type="submit" [disabled]="FormRefVariable.form.invalid" >Submit form</button>
     <!-- <button class="btn btn-primary" type="submit" [disabled]="FormRefVariable.form.invalid || topic.hasError">Submit form</button> -->
-
+   
   </form>
+ 
 </div>
