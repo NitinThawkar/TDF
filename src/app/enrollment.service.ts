@@ -7,7 +7,7 @@ import {User} from './user';
 })
 export class EnrollmentService {
 
-  _url = '';
+  _url = 'http://localhost:56329/api/enroll/SaveEnroll';
   constructor(private _HttpClient: HttpClient) { }
 
   enroll(user: User) {
