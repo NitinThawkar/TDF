@@ -10,6 +10,9 @@ import { FormBuilder , Validator} from '@angular/forms';
 })
 export class ReactFromComponent implements OnInit {
 
+  get userName() {
+    return this.registrationForm.get('userName');
+  }
   registrationForm = this.fb.group({
     userName: ['', [Validators.required, Validators.minLength(3)]],
     password: [''],
