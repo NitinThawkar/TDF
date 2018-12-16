@@ -11,22 +11,46 @@ import {PasswordValidator} from '../../app/Shared/password.validator';
 })
 export class ReactFromComponent implements OnInit {
 
+  registrationForm: FormGroup;
+
   get userName() {
     return this.registrationForm.get('userName');
   }
-  registrationForm = this.fb.group({
-    userName: ['', [Validators.required, Validators.minLength(3), ForbiddenNameValidator, ForbiddenNameValidatorStrValues(/password/)]],
-    password: [''],
-    confirmPassword: [''],
-    address: this.fb.group({
-      city: ['fsb'],
-      state: [''],
-      postalCode: ['']
-    })
-  }, {validator: PasswordValidator});
+
+  get email() {
+    return this.registrationForm.get('email');
+  }
+
+  // get alternateEmails() {
+  //   return this.registrationForm.get('alternateEmails') as FormArray;
+  // }
+
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
+    this. registrationForm = this.fb.group({
+      userName: ['', [Validators.required, Validators.minLength(3), ForbiddenNameValidator, ForbiddenNameValidatorStrValues(/password/)]],
+      password: [''],
+      confirmPassword: [''],
+      email: [''],
+      subscribe: [''],
+      address: this.fb.group({
+        city: ['fsb'],
+        state: [''],
+        postalCode: ['']
+      })
+    }, {validator: PasswordValidator});
+
+    this.registrationForm.get('subscribe').valueChanges
+      .subscribe(checkedValue => {
+        const email = this.registrationForm.get('email');
+        if (checkedValue) {
+          email.setValidators(Validators.required);
+        } else {
+          email.clearValidators();
+        }
+        email.updateValueAndValidity();
+       });
   }
   // registrationForm = new FormGroup({
   //   userName: new FormControl('Vishwas'),
