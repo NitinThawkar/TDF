@@ -35,4 +35,9 @@ export class AppComponent {
    // console.log(this.errorMsg);
    // console.log(this.errorMsg );
   }
+
+
+  onclickForm(FormRefVariable) {
+    console.log(FormRefVariable);
+  }
 }
