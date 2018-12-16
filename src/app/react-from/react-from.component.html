@@ -7,7 +7,13 @@
       <div class="from-group">
         <label for="">User name</label>
         <input formControlName="userName" type="text" class="form-control" [class.is-invalid]="registrationForm.get('userName').invalid && registrationForm.get('userName').touched">
-       <small class="text-danger" [class.d-none]="registrationForm.get('userName').valid || registrationForm.get('userName').untouched">Username is required</small> 
+       <!-- <small class="text-danger" [class.d-none]="registrationForm.get('userName').valid || registrationForm.get('userName').untouched">Username is required</small> -->
+       
+       <div *ngIf="registrationForm.get('userName').invalid && registrationForm.get('userName').touched">
+          <small class="text-danger" *ngIf="registrationForm.get('userName').errors?.required">Username is required</small>
+          <small class="text-danger" *ngIf="registrationForm.get('userName').errors?.minlength">Username must be at least 3 characters</small>
+
+        </div>
       </div>
       <div class="from-group">
         <label for="">Password</label>
