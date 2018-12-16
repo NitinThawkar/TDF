@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { FormBuilder , Validator} from '@angular/forms';
  import {ReactiveFormsModule} from '@angular/forms'; // add in app module
- import {ForbiddenNameValidator,ForbiddenNameValidatorStrValues} from '../../app/Shared/user-name.validator';
-
+import { ForbiddenNameValidator, ForbiddenNameValidatorStrValues } from '../../app/Shared/user-name.validator';
+import {PasswordValidator} from '../../app/Shared/password.validator';
 @Component({
   selector: 'app-react-from',
   templateUrl: './react-from.component.html',
@@ -23,7 +23,7 @@ export class ReactFromComponent implements OnInit {
       state: [''],
       postalCode: ['']
     })
-  });
+  }, {validator: PasswordValidator});
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {

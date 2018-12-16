@@ -23,7 +23,8 @@
       </div>
       <div class="from-group">
         <label for="">Conferm Password</label>
-        <input formControlName="confirmPassword" type="password" class="form-control">
+        <input type="password" [class.is-invalid]="registrationForm.errors?.misMatch" formControlName="confirmPassword" class="form-control">
+        <small class="text-danger" *ngIf="registrationForm.errors?.misMatch">Passwords do not match</small>
       </div>
       <div formGroupName="address">
         <div class="form-group">
