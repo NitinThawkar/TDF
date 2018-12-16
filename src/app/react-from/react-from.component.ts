@@ -21,10 +21,15 @@ export class ReactFromComponent implements OnInit {
     return this.registrationForm.get('email');
   }
 
-  // get alternateEmails() {
-  //   return this.registrationForm.get('alternateEmails') as FormArray;
-  // }
+  // alternateEmails accces this in template
+  get alternateEmails() {
+    return this.registrationForm.get('alternateEmails') as FormArray;
+  }
 
+  // if we call addAlternateEmail this will add new control in form array
+  addAlternateEmail() {
+    this.alternateEmails.push(this.fb.control(''));
+  }
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
@@ -38,7 +43,8 @@ export class ReactFromComponent implements OnInit {
         city: ['fsb'],
         state: [''],
         postalCode: ['']
-      })
+      }),
+      alternateEmails : this.fb.array([])
     }, {validator: PasswordValidator});
 
     this.registrationForm.get('subscribe').valueChanges
