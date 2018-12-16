@@ -14,21 +14,40 @@ export class ReactFromComponent implements OnInit {
   ngOnInit() {
   }
 
-  registrationForm = new FormGroup({
-    userName: new FormControl('Vishwas'),
-    password: new FormControl(''),
-    confirmPassword: new FormControl(''),
-  });
-
- // registrationForm: FormGroup;
   // registrationForm = new FormGroup({
   //   userName: new FormControl('Vishwas'),
   //   password: new FormControl(''),
   //   confirmPassword: new FormControl(''),
-  //   address: new FormGroup({
-  //     city: new FormControl(''),
-  //     state: new FormControl(''),
-  //     postalCode: new FormControl('')
-  //   })
-  // });   
+  // });
+
+  registrationForm = new FormGroup({
+    userName: new FormControl('Vishwas'),
+    password: new FormControl(''),
+    confirmPassword: new FormControl(''),
+    address: new FormGroup({
+      city: new FormControl(''),
+      state: new FormControl(''),
+      postalCode: new FormControl('')
+    })
+  });
+
+
+  loadAPIData() {
+    // this.registrationForm.setValue({
+    //   userName: 'Bruce',
+    //   password: 'test',
+    //   confirmPassword: 'test',
+    //   address: {
+    //     city: 'City',
+    //     state: 'State',
+    //     postalCode: '123456'
+    //   }
+    // });
+
+    this.registrationForm.patchValue({
+      userName: 'Bruce',
+      password: 'test',
+      confirmPassword: 'test'
+    });
+  }
 }
