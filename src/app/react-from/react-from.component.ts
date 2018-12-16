@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { FormBuilder , Validator} from '@angular/forms';
  import {ReactiveFormsModule} from '@angular/forms'; // add in app module
- import {ForbiddenNameValidator} from '../../app/Shared/user-name.validator';
+ import {ForbiddenNameValidator,ForbiddenNameValidatorStrValues} from '../../app/Shared/user-name.validator';
 
 @Component({
   selector: 'app-react-from',
@@ -15,7 +15,7 @@ export class ReactFromComponent implements OnInit {
     return this.registrationForm.get('userName');
   }
   registrationForm = this.fb.group({
-    userName: ['', [Validators.required, Validators.minLength(3), ForbiddenNameValidator]],
+    userName: ['', [Validators.required, Validators.minLength(3), ForbiddenNameValidator, ForbiddenNameValidatorStrValues(/password/)]],
     password: [''],
     confirmPassword: [''],
     address: this.fb.group({

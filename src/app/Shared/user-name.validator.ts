@@ -11,8 +11,24 @@ export function ForbiddenNameValidator(control: AbstractControl): { [key: string
     return forbidden ? { 'forbiddenNameVal': { value: control.value } } : null;
 }
 
-// export function ForbiddenNameValidatorOld(forbiddenName: RegExp): ValidatorFn {
-//     return (control: AbstractControl): { [key: string]: any } | null => {
-//         const forbidden = forbiddenName.test(control.value);
-//         return forbidden ? { 'forbiddenName': { value: control.value } } : null;
-//     };
+
+//factory function # take string as parameter and return validor hole Function #ValidatorFn
+export function ForbiddenNameValidatorStrVaues(forbiddenName: RegExp): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+        // not in quote /admin/
+        const forbidden = /admin/.test(control.value);
+
+        // return Key value or null
+        return forbidden ? { 'forbiddenNameVal': { value: control.value } } : null;
+    }
+}
+
+///////////////
+
+//factory function # take string as parameter and return validor hole Function #ValidatorFn
+export function ForbiddenNameValidatorStrValues(forbiddenName: RegExp): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+        const forbidden = forbiddenName.test(control.value);
+        return forbidden ? { 'forbiddenNameVal': { value: control.value } } : null;
+    };
+}
