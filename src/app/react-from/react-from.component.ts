@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder , Validator} from '@angular/forms';
  import {ReactiveFormsModule} from '@angular/forms'; // add in app module
 
 @Component({
@@ -11,7 +11,7 @@ import { FormBuilder } from '@angular/forms';
 export class ReactFromComponent implements OnInit {
 
   registrationForm = this.fb.group({
-    userName: ['Nitinv'],
+    userName: ['', Validators.required],
     password: [''],
     confirmPassword: [''],
     address: this.fb.group({
