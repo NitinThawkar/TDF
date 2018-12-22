@@ -10,6 +10,7 @@
                                    employeeForm.get('fullName').errors)}">
 
     <label class="col-sm-2 control-label" for="fullName">Full Name</label>
+    <span> name  {{100-nameLength}}</span>
     <div class="col-sm-8">
       <input id="fullName" type="text" class="form-control" formControlName="fullName" >
       <span class="help-block"
@@ -23,7 +24,7 @@
                      employeeForm.get('fullName').errors.maxlength">
             Full Name must be greater than 2 characters and less than 10 characters
         </span>
-      </span>
+      </span>    
     </div>
   </div>
   

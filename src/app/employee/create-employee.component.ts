@@ -12,6 +12,8 @@ export class CreateEmployeeComponent implements OnInit {
 
   constructor(private fb: FormBuilder) { }
 
+  nameLength = 0;
+
   ngOnInit() {
 
     // this.employeeForm = new FormGroup({
@@ -31,7 +33,37 @@ export class CreateEmployeeComponent implements OnInit {
         experienceInYears: [''],
         proficiency: ['beginner']
       }),
-    });    
+    });
+
+    this.employeeForm.get('fullName').valueChanges.subscribe((namevalue: string) => {
+      console.log(namevalue);
+      this.nameLength = namevalue.length;
+
+    }
+    );
+
+    this.employeeForm.valueChanges.subscribe(
+      value => {
+        console.log(JSON.stringify(value));
+      }
+    );
+
+    this.employeeForm.get('skills').valueChanges.subscribe((namevalue: string) => {
+      console.log(namevalue);
+      this.nameLength = namevalue.length;
+
+    }
+    );
+
+    const skill = this.employeeForm.get('skills');
+    skill.get('experienceInYears').valueChanges.subscribe((namevalue: number) => {
+      console.log(namevalue);
+      this.nameLength = namevalue;
+
+    }
+    );
+
+
   }
 
   onSubmit(): void {
