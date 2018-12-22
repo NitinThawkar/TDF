@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormGroupDirective } from '@angular/forms';
 
 @Component({
   selector: 'app-create-employee',
@@ -13,10 +13,43 @@ export class CreateEmployeeComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.employeeForm = new FormGroup({ fullName: new FormControl(), email: new FormControl() });
+    this.employeeForm = new FormGroup({
+      fullName: new FormControl(),
+      email: new FormControl(),
+      skills : new FormGroup({
+        skillName: new FormControl(),
+        experienceInYears: new FormControl(),
+        proficiency: new FormControl()
+      })
+    });
   }
 
   onSubmit(): void {
     console.log(this.employeeForm.value);
   }
+
+  onLoadDataClick(): void {
+    this.employeeForm.setValue({
+      fullName: 'Nitin Thawkar',
+      email: 'Nitin @gmail.com',
+      skills: {
+        skillName: 'Angular',
+        experienceInYears: 5,
+        proficiency: 'beginner'
+      }
+    });
+   }
+
+   onLoadDataClickpatch(): void {
+    this.employeeForm.patchValue({
+      fullName: 'Nitin Thawkar',
+     // email: 'Nitin @gmail.com',
+      skills: {
+        skillName: 'Angular',
+        experienceInYears: 5,
+        proficiency: 'beginner'
+      }
+    });
+   }
+
 }
