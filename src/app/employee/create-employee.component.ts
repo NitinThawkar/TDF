@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl, FormArray } from '@angular/forms';
 import {CustomValidators} from '../Shared/custom.validators';
 @Component({
   selector: 'app-create-employee',
@@ -176,6 +176,40 @@ export class CreateEmployeeComponent implements OnInit {
 
   }
 
+  createFormArrayClick(): void {
+    const formArray = new FormArray([
+      new FormControl('John', Validators.required),
+      new FormGroup({
+        country: new FormControl('', Validators.required)
+      }),
+      new FormArray([])
+    ]);
+
+
+    //using form builder
+    const formArray1 = this.fb.array([
+      new FormControl('John', Validators.required),
+      new FormControl('IT', Validators.required),
+    ]);
+    
+    formArray1.push(new FormControl('ram', Validators.required));
+    console.log('formArray.value ' + formArray1.value);
+    console.log('control length ' + formArray1.length);
+    console.log('formArray.value ' + formArray1.at(3).value);
+
+    for (const control of formArray.controls) {
+      if (control instanceof FormControl) {
+        console.log('control is FormControl');
+      }
+      if (control instanceof FormGroup) {
+        console.log('control is FormGroup');
+      }
+      if (control instanceof FormArray) {
+        console.log('control is FormArray');
+      }
+    }
+
+  }
 
   logValidationErrors_(group: FormGroup = this.employeeForm): void {
     // Loop through each control key in the FormGroup
