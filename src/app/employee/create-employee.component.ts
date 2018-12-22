@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from '@angular/forms';
-
+import {CustomValidators} from '../Shared/custom.validators';
 @Component({
   selector: 'app-create-employee',
   templateUrl: './create-employee.component.html',
@@ -63,7 +63,7 @@ export class CreateEmployeeComponent implements OnInit {
     // });
     this.employeeForm = this.fb.group({
       fullName: ['nitin', [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
-      email: ['nitin@gmail.com', [Validators.required, emailDomain('dell.com')]],
+      email: ['nitin@gmail.com', [Validators.required, CustomValidators.emailDomain('dell.com')]],
       contactPreference: ['email'],
       phone: [],
       skills: this.fb.group({
@@ -242,15 +242,15 @@ function emailDomainn(control: AbstractControl): { [key: string]: any } | null {
   }
 }
 
-
-function emailDomain(domainName: string) {
-  return (control: AbstractControl): { [key: string]: any } | null => {
-    const email: string = control.value;
-    const domain = email.substring(email.lastIndexOf('@') + 1);
-    if (email === '' || domain.toLowerCase() === domainName.toLowerCase()) {
-      return null;
-    } else {
-      return { 'emailDomain': true };
-    }
-  };
-}
+// moved below  code in  shared/custom.validators.ts
+// function emailDomain(domainName: string) {
+//   return (control: AbstractControl): { [key: string]: any } | null => {
+//     const email: string = control.value;
+//     const domain = email.substring(email.lastIndexOf('@') + 1);
+//     if (email === '' || domain.toLowerCase() === domainName.toLowerCase()) {
+//       return null;
+//     } else {
+//       return { 'emailDomain': true };
+//     }
+//   };
+// }
