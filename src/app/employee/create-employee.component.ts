@@ -91,6 +91,12 @@ export class CreateEmployeeComponent implements OnInit {
     }
     );
 
+    // When any of the form control value in employee form changes
+  // our validation function logValidationErrors() is called
+  this.employeeForm.valueChanges.subscribe((data) => {
+    this.logValidationErrors(this.employeeForm);
+  });
+
 
   }
 
@@ -125,6 +131,8 @@ export class CreateEmployeeComponent implements OnInit {
     });
    }
 
+   
+
 
    onLoadDataClick(): void {
     this.logKeyValuePairs(this.employeeForm);
@@ -136,7 +144,7 @@ export class CreateEmployeeComponent implements OnInit {
    }
 
 
-  logValidationErrors(group: FormGroup): void {
+  logValidationErrors(group: FormGroup = this.employeeForm): void {
     // Loop through each control key in the FormGroup
     Object.keys(group.controls).forEach((key: string) => {
       // Get the control. The control can be a nested form group
@@ -149,7 +157,7 @@ export class CreateEmployeeComponent implements OnInit {
       } else {
         // Clear the existing validation errors
         this.formErrors[key] = '';
-        if (abstractControl && !abstractControl.valid) {
+        if (abstractControl && !abstractControl.valid && (abstractControl.touched || abstractControl.dirty)) {
           // Get all the validation messages of the form control
           // that has failed the validation
           const messages = this.validationMessages[key];
