@@ -18,8 +18,12 @@ export class CreateEmployeeComponent implements OnInit {
   // Notice, each key in this object has the same name as the
   // corresponding form control
   formErrors = {
-    'fullName': '', 'email': '', 'skillName': '',
-    'experienceInYears': '', 'proficiency': ''
+    'fullName': '',
+    'email': '',
+    'phone': '',
+    'skillName': '',
+    'experienceInYears': '',
+    'proficiency': ''
   };
   // This object contains all the validation messages for this form
   validationMessages = {
@@ -30,6 +34,9 @@ export class CreateEmployeeComponent implements OnInit {
     },
     'email': {
       'required': 'Email is required.'
+    },
+    'phone': {
+      'required': 'phone is required.'
     },
     'skillName': {
       'required': 'Skill Name is required.',
@@ -55,11 +62,13 @@ export class CreateEmployeeComponent implements OnInit {
     // });
     this.employeeForm = this.fb.group({
       fullName: ['nitin', [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
-      email: ['nitin@gmail.com' , Validators.required],
+      email: ['nitin@gmail.com', Validators.required],
+      contactPreference: ['email'],
+      phone: [],
       skills: this.fb.group({
-        skillName: ['Ang' , Validators.required],
-        experienceInYears: [5 , Validators.required],
-        proficiency: ['' , Validators.required]
+        skillName: ['Ang', Validators.required],
+        experienceInYears: [5, Validators.required],
+        proficiency: ['', Validators.required]
       }),
     });
 
@@ -92,11 +101,17 @@ export class CreateEmployeeComponent implements OnInit {
     );
 
     // When any of the form control value in employee form changes
-  // our validation function logValidationErrors() is called
-  this.employeeForm.valueChanges.subscribe((data) => {
-    this.logValidationErrors(this.employeeForm);
-  });
+    // our validation function logValidationErrors() is called
+    this.employeeForm.valueChanges.subscribe((data) => {
+      this.logValidationErrors(this.employeeForm);
+    });
 
+
+    //14-Dynamically adding or removing form control validators in reactive form
+    this.employeeForm.get('contactPreference')
+      .valueChanges.subscribe((data: string) => {
+        this.onContactPrefernceChange(data);
+      });
 
   }
 
@@ -119,29 +134,29 @@ export class CreateEmployeeComponent implements OnInit {
 
 
 
-   onLoadDataClickpatch(): void {
+  onLoadDataClickpatch(): void {
     this.employeeForm.patchValue({
       fullName: 'Nitin Thawkar',
-     // email: 'Nitin @gmail.com',
+      // email: 'Nitin @gmail.com',
       skills: {
         skillName: 'Angular',
         experienceInYears: 5,
         proficiency: 'beginner'
       }
     });
-   }
-
-   
+  }
 
 
-   onLoadDataClick(): void {
+
+
+  onLoadDataClick(): void {
     this.logKeyValuePairs(this.employeeForm);
 
     //12-Move validation messages to the component class in reactive form
     this.logValidationErrors(this.employeeForm);
     console.log(this.formErrors);
-  
-   }
+
+  }
 
 
   logValidationErrors(group: FormGroup = this.employeeForm): void {
@@ -176,7 +191,7 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
 
-   logKeyValuePairs(group: FormGroup): void {
+  logKeyValuePairs(group: FormGroup): void {
     // loop through each key in the FormGroup
     Object.keys(group.controls).forEach((key: string) => {
       // Get a reference to the control using the FormGroup.get() method
@@ -187,21 +202,31 @@ export class CreateEmployeeComponent implements OnInit {
       if (abstractControl instanceof FormGroup) {
         this.logKeyValuePairs(abstractControl);
         // If the control is not a FormGroup then we know it's a FormControl
-         // abstractControl.disable();
+        // abstractControl.disable();
 
       } else {
         console.log('Key = ' + key + ' && Value = ' + abstractControl.value);
 
         //disable the all from Controls
-       // abstractControl.disable();
+        // abstractControl.disable();
 
-       //  abstractControl.markAsDirty()
-     
+        //  abstractControl.markAsDirty()
+
       }
     });
   }
-  
 
-   
+  // If the Selected Radio Button value is "phone", then add the
+// required validator function otherwise remove it
+onContactPrefernceChange(selectedValue: string) {
+  const phoneFormControl = this.employeeForm.get('phone');
+  if (selectedValue === 'phone') {
+    phoneFormControl.setValidators(Validators.required);
+  } else {
+    phoneFormControl.clearValidators();
+  }
+  phoneFormControl.updateValueAndValidity();
+}
+
 
 }
