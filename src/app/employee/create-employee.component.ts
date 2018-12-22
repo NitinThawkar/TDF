@@ -26,11 +26,11 @@ export class CreateEmployeeComponent implements OnInit {
     //   })
     // });
     this.employeeForm = this.fb.group({
-      fullName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
-      email: [''],
+      fullName: ['nitin', [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
+      email: ['nitin@gmail.com'],
       skills: this.fb.group({
-        skillName: [''],
-        experienceInYears: [''],
+        skillName: ['Ang'],
+        experienceInYears: [5],
         proficiency: ['beginner']
       }),
     });
@@ -70,17 +70,20 @@ export class CreateEmployeeComponent implements OnInit {
     console.log(this.employeeForm.value);
   }
 
-  onLoadDataClick(): void {
-    this.employeeForm.setValue({
-      fullName: 'Nitin Thawkar',
-      email: 'Nitin @gmail.com',
-      skills: {
-        skillName: 'Angular',
-        experienceInYears: 5,
-        proficiency: 'beginner'
-      }
-    });
-   }
+  // onLoadDataClick(): void {
+  //   this.employeeForm.setValue({
+  //     fullName: 'Nitin Thawkar',
+  //     email: 'Nitin @gmail.com',
+  //     skills: {
+  //       skillName: 'Angular',
+  //       experienceInYears: 5,
+  //       proficiency: 'beginner'
+  //     }
+  //   });
+  //  }
+
+
+
 
    onLoadDataClickpatch(): void {
     this.employeeForm.patchValue({
@@ -93,5 +96,39 @@ export class CreateEmployeeComponent implements OnInit {
       }
     });
    }
+
+
+   onLoadDataClick(): void {
+    this.logKeyValuePairs(this.employeeForm);
+   }
+
+
+   logKeyValuePairs(group: FormGroup): void {
+    // loop through each key in the FormGroup
+    Object.keys(group.controls).forEach((key: string) => {
+      // Get a reference to the control using the FormGroup.get() method
+      const abstractControl = group.get(key);
+      // If the control is an instance of FormGroup i.e a nested FormGroup
+      // then recursively call this same method (logKeyValuePairs) passing it
+      // the FormGroup so we can get to the form controls in it
+      if (abstractControl instanceof FormGroup) {
+        this.logKeyValuePairs(abstractControl);
+        // If the control is not a FormGroup then we know it's a FormControl
+         // abstractControl.disable();
+
+      } else {
+        console.log('Key = ' + key + ' && Value = ' + abstractControl.value);
+
+        //disable the all from Controls
+       // abstractControl.disable();
+
+       //  abstractControl.markAsDirty()
+     
+      }
+    });
+  }
+  
+
+   
 
 }
