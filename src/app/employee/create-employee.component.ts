@@ -20,6 +20,8 @@ export class CreateEmployeeComponent implements OnInit {
   formErrors = {
     'fullName': '',
     'email': '',
+    'confirmEmail': '',
+    'emailGroup': '',
     'phone': '',
     'skillName': '',
     'experienceInYears': '',
@@ -36,6 +38,16 @@ export class CreateEmployeeComponent implements OnInit {
       'required': 'Email is required.',
       'emailDomain': 'Email domian should be dell.com'
     },
+
+    'confirmEmail': {
+      'required': 'Confirm Email is required.'
+    },
+
+    'emailGroup': {
+      'emailMismatch': 'Email and Confirm Email do not match.'
+    },
+
+
     'phone': {
       'required': 'phone is required.'
     },
@@ -63,8 +75,13 @@ export class CreateEmployeeComponent implements OnInit {
     // });
     this.employeeForm = this.fb.group({
       fullName: ['nitin', [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
-      email: ['nitin@gmail.com', [Validators.required, CustomValidators.emailDomain('dell.com')]],
+      // email: ['nitin@gmail.com', [Validators.required, CustomValidators.emailDomain('dell.com')]],
       contactPreference: ['email'],
+      emailGroup: this.fb.group({
+        email: ['', [Validators.required, CustomValidators.emailDomain('dell.com')]],
+        confirmEmail: ['', [Validators.required]],
+      }, { validator: matchEmails }),
+  
       phone: [],
       skills: this.fb.group({
         skillName: ['Ang', Validators.required],
@@ -160,7 +177,7 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
 
-  logValidationErrors(group: FormGroup = this.employeeForm): void {
+  logValidationErrors_(group: FormGroup = this.employeeForm): void {
     // Loop through each control key in the FormGroup
     Object.keys(group.controls).forEach((key: string) => {
       // Get the control. The control can be a nested form group
@@ -191,6 +208,32 @@ export class CreateEmployeeComponent implements OnInit {
     });
   }
 
+  logValidationErrors(group: FormGroup = this.employeeForm): void {
+    Object.keys(group.controls).forEach((key: string) => {
+      const abstractControl = group.get(key);
+      this.formErrors[key] = '';
+      // Loop through nested form groups and form controls to check
+      // for validation errors. For the form groups and form controls
+      // that have failed validation, retrieve the corresponding
+      // validation message from validationMessages object and store
+      // it in the formErrors object. The UI binds to the formErrors
+      // object properties to display the validation errors.
+      if (abstractControl && !abstractControl.valid
+        && (abstractControl.touched || abstractControl.dirty)) {
+        const messages = this.validationMessages[key];
+        for (const errorKey in abstractControl.errors) {
+          if (errorKey) {
+            this.formErrors[key] += messages[errorKey] + ' ';
+          }
+        }
+      }
+  
+      if (abstractControl instanceof FormGroup) {
+        this.logValidationErrors(abstractControl);
+      }
+    });
+  }
+  
 
   logKeyValuePairs(group: FormGroup): void {
     // loop through each key in the FormGroup
@@ -216,6 +259,8 @@ export class CreateEmployeeComponent implements OnInit {
       }
     });
   }
+
+ 
 
   // If the Selected Radio Button value is "phone", then add the
 // required validator function otherwise remove it
@@ -254,3 +299,20 @@ function emailDomainn(control: AbstractControl): { [key: string]: any } | null {
 //     }
 //   };
 // }
+
+
+// Nested form group (emailGroup) is passed as a parameter. Retrieve email and
+// confirmEmail form controls. If the values are equal return null to indicate
+// validation passed otherwise an object with emailMismatch key. Please note we
+// used this same key in the validationMessages object against emailGroup
+// property to store the corresponding validation error message
+function matchEmails(group: AbstractControl): { [key: string]: any } | null {
+  const emailControl = group.get('email');
+  const confirmEmailControl = group.get('confirmEmail');
+
+  if (emailControl.value === confirmEmailControl.value || confirmEmailControl.pristine) {
+    return null;
+  } else {
+    return { 'emailMismatch': true };
+  }
+}
