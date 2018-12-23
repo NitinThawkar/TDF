@@ -23,9 +23,9 @@ export class CreateEmployeeComponent implements OnInit {
     'confirmEmail': '',
     'emailGroup': '',
     'phone': '',
-    'skillName': '',
-    'experienceInYears': '',
-    'proficiency': ''
+    //'skillName': '',
+   // 'experienceInYears': '',
+   // 'proficiency': ''
   };
   // This object contains all the validation messages for this form
   validationMessages = {
@@ -51,15 +51,15 @@ export class CreateEmployeeComponent implements OnInit {
     'phone': {
       'required': 'phone is required.'
     },
-    'skillName': {
-      'required': 'Skill Name is required.',
-    },
-    'experienceInYears': {
-      'required': 'Experience is required.',
-    },
-    'proficiency': {
-      'required': 'Proficiency is required.',
-    },
+    // 'skillName': {
+    //   'required': 'Skill Name is required.',
+    // },
+    // 'experienceInYears': {
+    //   'required': 'Experience is required.',
+    // },
+    // 'proficiency': {
+    //   'required': 'Proficiency is required.',
+    // },
   };
 
   ngOnInit() {
