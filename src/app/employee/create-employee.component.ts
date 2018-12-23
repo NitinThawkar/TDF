@@ -83,11 +83,9 @@ export class CreateEmployeeComponent implements OnInit {
       }, { validator: matchEmails }),
   
       phone: [],
-      skills: this.fb.group({
-        skillName: ['Ang', Validators.required],
-        experienceInYears: [5, Validators.required],
-        proficiency: ['', Validators.required]
-      }),
+      skills: this.fb.array([
+      this. addSkillFormGroup()
+      ]),
     });
 
     this.employeeForm.get('fullName').valueChanges.subscribe((namevalue: string) => {
@@ -132,6 +130,15 @@ export class CreateEmployeeComponent implements OnInit {
       });
 
   }
+
+  addSkillFormGroup(): FormGroup {
+    return this.fb.group({
+      skillName: ['', Validators.required],
+      experienceInYears: ['', Validators.required],
+      proficiency: ['', Validators.required]
+    });
+  }
+  
 
   onSubmit(): void {
     console.log(this.employeeForm.value);
@@ -211,6 +218,11 @@ export class CreateEmployeeComponent implements OnInit {
 
   }
 
+  addSkillButtonClick(): void {
+    (<FormArray>this.employeeForm.get('skills')).push(this.addSkillFormGroup());
+  }
+  
+
   logValidationErrors_(group: FormGroup = this.employeeForm): void {
     // Loop through each control key in the FormGroup
     Object.keys(group.controls).forEach((key: string) => {
@@ -265,6 +277,18 @@ export class CreateEmployeeComponent implements OnInit {
       if (abstractControl instanceof FormGroup) {
         this.logValidationErrors(abstractControl);
       }
+
+      // We need this additional check to get to the FormGroup
+    // in the FormArray and then recursively call this
+    // logValidationErrors() method to fix the broken validation
+    if (abstractControl instanceof FormArray) {
+      for (const control of abstractControl.controls) {
+        if (control instanceof FormGroup) {
+          this.logValidationErrors(control);
+        }
+      }
+    }
+
     });
   }
   
