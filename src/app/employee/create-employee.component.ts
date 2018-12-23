@@ -221,7 +221,10 @@ export class CreateEmployeeComponent implements OnInit {
   addSkillButtonClick(): void {
     (<FormArray>this.employeeForm.get('skills')).push(this.addSkillFormGroup());
   }
-  
+
+  removeSkillButtonClick(skillGroupIndex: number): void {
+    (<FormArray>this.employeeForm.get('skills')).removeAt(skillGroupIndex);
+  }
 
   logValidationErrors_(group: FormGroup = this.employeeForm): void {
     // Loop through each control key in the FormGroup
@@ -331,6 +334,9 @@ onContactPrefernceChange(selectedValue: string) {
   }
   phoneFormControl.updateValueAndValidity();
 }
+
+
+
 
 
 }
