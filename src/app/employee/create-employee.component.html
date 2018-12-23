@@ -85,11 +85,11 @@ string is passed to the event handler function -->
           <div formGroupName="i">
 
               <div class="form-group" [ngClass]="{'has-error': formErrors.skillName}">
-                <label class="col-sm-2 control-label" for="skillName">
+                <label class="col-sm-2 control-label" [attr.for]="'skillName'+i">
                   Skill
                 </label>
-                <div class="col-sm-4">
-                  <input type="text" class="form-control" id="skillName" formControlName="skillName" (blur)="logValidationErrors()"
+                <div class="col-sm-4">  
+                  <input type="text" class="form-control" [id]="'skillName'+i" formControlName="skillName" (blur)="logValidationErrors()"
                     placeholder="C#, Java, Angular etc...">
                   <span class="help-block" *ngIf="formErrors.skillName">
                     {{formErrors.skillName}}

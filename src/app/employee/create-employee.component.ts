@@ -108,13 +108,13 @@ export class CreateEmployeeComponent implements OnInit {
     }
     );
 
-    const skill = this.employeeForm.get('skills');
-    skill.get('experienceInYears').valueChanges.subscribe((namevalue: number) => {
-      console.log(namevalue);
-      this.nameLength = namevalue;
+    // const skill = this.employeeForm.get('skills');
+    // skill.get('experienceInYears0').valueChanges.subscribe((namevalue: number) => {
+    //   console.log(namevalue);
+    //   this.nameLength = namevalue;
 
-    }
-    );
+    // }
+    // );
 
     // When any of the form control value in employee form changes
     // our validation function logValidationErrors() is called
