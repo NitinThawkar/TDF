@@ -35,8 +35,8 @@ import { PageNotFoundComponent } from './page-not-found.component';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    AppRoutingModule,
-    EmployeeModule
+    EmployeeModule,
+    AppRoutingModule    
   ],
   providers: [EmployeeService],
   bootstrap: [AppComponent]
