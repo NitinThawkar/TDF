@@ -10,6 +10,10 @@ import { CreateEmployeeComponent } from './employee/create-employee.component';
 import { ListEmployeeComponent } from './employee/list-employee.component';
 //import { ReactFromComponent } from './react-from/react-from.component';
 
+import { EmployeeService } from './employee/employee.service';
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +30,7 @@ import { ListEmployeeComponent } from './employee/list-employee.component';
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [EmployeeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
