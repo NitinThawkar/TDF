@@ -174,9 +174,24 @@ export class CreateEmployeeComponent implements OnInit {
       },
       phone: employee.phone
     });
+
+    // part 28
+  this.employeeForm.setControl('skills', this.setExistingSkills(employee.skills));
+
   }
+  // part 28
+  setExistingSkills(skillSets: ISkill[]): FormArray {
+    const formArray = new FormArray([]);
+    skillSets.forEach(s => {
+      formArray.push(this.fb.group({
+        skillName: s.skillName,
+        experienceInYears: s.experienceInYears,
+        proficiency: s.proficiency
+      }));
+    });
 
-
+    return formArray;
+  }
 
   addSkillFormGroup(): FormGroup {
     return this.fb.group({
@@ -269,9 +284,18 @@ export class CreateEmployeeComponent implements OnInit {
     (<FormArray>this.employeeForm.get('skills')).push(this.addSkillFormGroup());
   }
 
-  removeSkillButtonClick(skillGroupIndex: number): void {
+  removeSkillButtonClick_old(skillGroupIndex: number): void {
     (<FormArray>this.employeeForm.get('skills')).removeAt(skillGroupIndex);
   }
+
+  //part 28
+  removeSkillButtonClick(skillGroupIndex: number): void {
+    const skillsFormArray = <FormArray>this.employeeForm.get('skills');
+    skillsFormArray.removeAt(skillGroupIndex);
+    skillsFormArray.markAsDirty();
+    skillsFormArray.markAsTouched();
+  }
+
 
   logValidationErrors_(group: FormGroup = this.employeeForm): void {
     // Loop through each control key in the FormGroup
