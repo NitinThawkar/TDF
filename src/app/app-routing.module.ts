@@ -12,6 +12,7 @@ const routes: Routes = [
   { path: 'TDF', component: TDFFormComponent },
   { path: 'list', component: ListEmployeeComponent },
   { path: 'create', component: CreateEmployeeComponent },
+  { path: 'edit/:id', component: CreateEmployeeComponent },
   { path: '', redirectTo: '/list', pathMatch: 'full' }
 ];
 @NgModule({
