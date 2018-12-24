@@ -19,6 +19,7 @@ export class CreateEmployeeComponent implements OnInit {
   // part 29
   employee: IEmployee;  
   nameLength = 0;
+  pageTitle: string;
 
   constructor(private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -148,7 +149,20 @@ export class CreateEmployeeComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       const empId = +params.get('id');
       if (empId) {
+        this.pageTitle='Edit Employee';
         this.getEmployee(empId);
+      }
+      //part 30
+      else {
+        this.pageTitle='Create Employee';
+        this.employee = {
+          id: null,
+          fullName: '',
+          contactPreference: '',
+          email: '',
+          phone: null,
+          skills: []
+        };
       }
     });
 
@@ -216,11 +230,21 @@ export class CreateEmployeeComponent implements OnInit {
 
     //Part 29
     this.mapFormValuesToEmployeeModel();
+    if (this.employee.id) {
+      
     this.employeeService.updateEmployee(this.employee).subscribe(
       () => this.router.navigate(['list']),
       (err: any) => console.log(err)
     );
-
+    }
+    //part 30
+    else {
+     
+      this.employeeService.addEmployee(this.employee).subscribe(
+        () => this.router.navigate(['list']),
+        (err: any) => console.log(err)
+      );
+    }  
   }
 //Part 29
   mapFormValuesToEmployeeModel() {
