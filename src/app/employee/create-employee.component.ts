@@ -5,7 +5,8 @@ import { ActivatedRoute } from '@angular/router';  // part 27
 import { EmployeeService } from './employee.service'; // part 27
 import { IEmployee } from './IEmployee'; // part 27
 import { ISkill } from './ISkill'; // part 27
-
+//import { Route } from '@angular/router'; //part 29
+import { Router } from '@angular/router'; //part 29
 
 @Component({
   selector: 'app-create-employee',
@@ -15,13 +16,16 @@ import { ISkill } from './ISkill'; // part 27
 export class CreateEmployeeComponent implements OnInit {
 
   employeeForm: FormGroup;
+  // part 29
+  employee: IEmployee;  
+  nameLength = 0;
 
   constructor(private fb: FormBuilder,
     private route: ActivatedRoute,
-    private employeeService: EmployeeService
+    private employeeService: EmployeeService,
+    private router: Router
   ) { }
 
-  nameLength = 0;
 
   // This object will hold the messages to be displayed to the user
   // Notice, each key in this object has the same name as the
@@ -140,7 +144,7 @@ export class CreateEmployeeComponent implements OnInit {
 
 
     //part 27
-    debugger;
+   
     this.route.paramMap.subscribe(params => {
       const empId = +params.get('id');
       if (empId) {
@@ -152,12 +156,17 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
   //part 27
-  debugger;
+ 
   getEmployee(id: number) {
     this.employeeService.getEmployee(id)
       .subscribe(
         (employee: IEmployee) => {
-          this.editEmployee(employee);
+
+        //Part 29
+        // Store the employee object returned by the
+        // REST API in the employee property
+        this.employee = employee;
+        this.editEmployee(employee);
          },
         (err: any) => console.log(err)
       );
@@ -204,7 +213,24 @@ export class CreateEmployeeComponent implements OnInit {
 
   onSubmit(): void {
     console.log(this.employeeForm.value);
+
+    //Part 29
+    this.mapFormValuesToEmployeeModel();
+    this.employeeService.updateEmployee(this.employee).subscribe(
+      () => this.router.navigate(['list']),
+      (err: any) => console.log(err)
+    );
+
   }
+//Part 29
+  mapFormValuesToEmployeeModel() {
+    this.employee.fullName = this.employeeForm.value.fullName;
+    this.employee.contactPreference = this.employeeForm.value.contactPreference;
+    this.employee.email = this.employeeForm.value.emailGroup.email;
+    this.employee.phone = this.employeeForm.value.phone;
+    this.employee.skills = this.employeeForm.value.skills;
+  }
+  
 
   // onLoadDataClick(): void {
   //   this.employeeForm.setValue({
