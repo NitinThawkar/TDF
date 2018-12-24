@@ -7,13 +7,24 @@ import {TDFFormComponent} from './tdf-form/tdf-form.component';
 import { CreateEmployeeComponent } from './employee/create-employee.component';
 import { ListEmployeeComponent } from './employee/list-employee.component';
 
+import { HomeComponent } from './home.component';
+import { PageNotFoundComponent } from './page-not-found.component';
+
+
 const routes: Routes = [
+    // home route
+  { path: 'home', component: HomeComponent },
+
   { path: 'react', component: ReactFromComponent },
   { path: 'TDF', component: TDFFormComponent },
   { path: 'list', component: ListEmployeeComponent },
   { path: 'create', component: CreateEmployeeComponent },
   { path: 'edit/:id', component: CreateEmployeeComponent },
-  { path: '', redirectTo: '/list', pathMatch: 'full' }
+ // redirect to the home route if the client side route path is empty
+ { path: '', redirectTo: '/home', pathMatch: 'full' },
+ // wild card route
+ { path: '**', component: PageNotFoundComponent }
+
 ];
 @NgModule({
   imports: [
