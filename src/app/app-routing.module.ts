@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule , PreloadAllModules, NoPreloading} from '@angular/router';
 
 import {ReactFromComponent} from './react-from/react-from.component';
 import {TDFFormComponent} from './tdf-form/tdf-form.component';
@@ -27,7 +27,8 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }) //part 37
+    //RouterModule.forRoot(routes, { preloadingStrategy: NoPreloading }) //part 37
   ],
   exports : [RouterModule]
   ,
