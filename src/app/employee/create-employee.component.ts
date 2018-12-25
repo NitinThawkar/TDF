@@ -88,7 +88,7 @@ export class CreateEmployeeComponent implements OnInit {
     //   })
     // });
     this.employeeForm = this.fb.group({
-      fullName: ['nitin', [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
+      fullName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
       // email: ['nitin@gmail.com', [Validators.required, CustomValidators.emailDomain('dell.com')]],
       contactPreference: ['email'],
       emailGroup: this.fb.group({

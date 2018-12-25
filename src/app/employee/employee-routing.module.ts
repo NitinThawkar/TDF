@@ -21,6 +21,7 @@ import { ListEmployeeComponent } from './list-employee.component';
 //  Part 36
 const empRoutes: Routes = [
   { path: '', component: ListEmployeeComponent },
+  { path: 'list', component: ListEmployeeComponent },
   { path: 'create', component: CreateEmployeeComponent },
   { path: 'edit/:id', component: CreateEmployeeComponent },
 ];

@@ -7,7 +7,9 @@ import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class EmployeeService {
-    baseUrl = 'http://localhost:56329/api/employees';
+   // baseUrl = 'http://localhost:56329/api/employees';
+
+    baseUrl = 'http://localhost:3000/employees';
     constructor(private httpClient: HttpClient) {
     }
 
