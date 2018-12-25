@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule, routingComponents } from './app-routing.module'; // user define module
-import { EmployeeModule } from './employee/employee.module'; // user define module
+//import { EmployeeModule } from './employee/employee.module'; // user define module part 36
 
 import { EmployeeService } from './employee/employee.service';
 
@@ -35,7 +35,7 @@ import { PageNotFoundComponent } from './page-not-found.component';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    EmployeeModule,
+   // EmployeeModule // part 36
     AppRoutingModule    
   ],
   providers: [EmployeeService],
