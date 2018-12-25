@@ -7,12 +7,17 @@ import { ListEmployeeComponent } from './list-employee.component';
 
 
 const routes: Routes = [
-  
-    { path: 'list', component: ListEmployeeComponent },
-   { path: 'create', component: CreateEmployeeComponent },
-    { path: 'edit/:id', component: CreateEmployeeComponent }
-
+  {
+    path: 'employees',
+    children: [
+      { path: 'list', component: ListEmployeeComponent },
+      { path: '', component: ListEmployeeComponent },
+      { path: 'create', component: CreateEmployeeComponent },
+      { path: 'edit/:id', component: CreateEmployeeComponent },
+    ]
+  }
 ];
+
 @NgModule({
   imports: [
     CommonModule,
