@@ -8,6 +8,7 @@ import {TDFFormComponent} from './tdf-form/tdf-form.component';
 
 import { HomeComponent } from './home.component';
 import { PageNotFoundComponent } from './page-not-found.component';
+import { CustomPreloadingService } from './custom-preloding.service';
 
 
 const routes: Routes = [
@@ -19,7 +20,7 @@ const routes: Routes = [
  // redirect to the home route if the client side route path is empty
  { path: '', redirectTo: '/home', pathMatch: 'full' },
 
- { path: 'employees', loadChildren: './employee/employee.module#EmployeeModule' }, // part 36
+ { path: 'employees', data : { preload : true}, loadChildren: './employee/employee.module#EmployeeModule' }, // part 36
  // wild card route
  { path: '**', component: PageNotFoundComponent }
 
@@ -27,7 +28,8 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }) //part 37
+    RouterModule.forRoot(routes, { preloadingStrategy: CustomPreloadingService }) //part 38
+    //RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }) //part 37
     //RouterModule.forRoot(routes, { preloadingStrategy: NoPreloading }) //part 37
   ],
   exports : [RouterModule]
