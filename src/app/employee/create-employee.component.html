@@ -84,6 +84,7 @@ string is passed to the event handler function -->
            
             <div formArrayName="skills"
             *ngFor="let skill of employeeForm.get('skills').controls; let i = index">
+            {{employeeForm.get('skills').controls |json}}
             <hr *ngIf="i>0">
           <div [formGroupName]="i">
         
